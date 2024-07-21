@@ -1,1 +1,1 @@
-g
+PhantomForge empowers researchers and developers to create phantom datasets that are indistinguishable from real-world data, enabling rapid advancement in AI model training and evaluation. Forge ahead with PhantomForge – where synthetic meets authentic in the realm of artificial intelligence.
