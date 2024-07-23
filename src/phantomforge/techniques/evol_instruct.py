@@ -65,8 +65,8 @@ def createComparisonEliminatorPrompt(before, after):
     return prompt
 
 import random
-# from openai_generate import OpenAI, AzureOpenAI
-from src.phantomforge.utils import *
+from src.phantomforge.core.data_generator import OpenAI, AzureOpenAI
+from src.phantomforge.utils.config import *
 import os
 
 
@@ -77,15 +77,15 @@ class EvolInstruct:
         self.num_iterations = num_iterations
         self.dataset = initial_dataset
         self.verbose = verbose
-        # if azure_config_path:
-        #     config = load_config(azure_config_path)
-        #     self.evol_model = AzureOpenAI(config, evol_model, use_requests=use_requests)
-        #     self.eliminator_model = AzureOpenAI(config, eliminator_model,
-        #                                         use_requests=use_requests) if eliminator_model else None
-        # else:
-        #     openai_api_key = os.environ.get("OPENAI_API_KEY")
-        #     self.evol_model = OpenAI(openai_api_key, evol_model, use_requests=use_requests)
-        #     self.eliminator_model = OpenAI(eliminator_model, use_requests=use_requests) if eliminator_model else None
+        if azure_config_path:
+            config = load_config(azure_config_path)
+            self.evol_model = AzureOpenAI(config, evol_model, use_requests=use_requests)
+            self.eliminator_model = AzureOpenAI(config, eliminator_model,
+                                                use_requests=use_requests) if eliminator_model else None
+        else:
+            openai_api_key = os.environ.get("OPENAI_API_KEY")
+            self.evol_model = OpenAI(openai_api_key, evol_model, use_requests=use_requests)
+            self.eliminator_model = OpenAI(eliminator_model, use_requests=use_requests) if eliminator_model else None
 
         self.evol_model_kwargs = {"temperature": 1, "max_tokens": 2048, "top_p": 0.95, "frequency_penalty": 0,
                                   "presence_penalty": 0, "stop": None}

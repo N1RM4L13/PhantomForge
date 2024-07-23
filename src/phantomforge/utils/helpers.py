@@ -1,5 +1,6 @@
 import json
 import re
+import yaml
 
 def load_dataset(json_path):
     return [json.loads(line) for line in open(json_path, 'r')]
@@ -7,6 +8,16 @@ def load_dataset(json_path):
 def save_dataset(dataset, path):
     with open(path, 'w') as f:
         json.dump(dataset, f)
+
+def load_config(path):
+    """
+    Load config from a YAML file
+    :param path:
+    :return: config dict
+    """
+    with open(path, "r") as f:
+        config = yaml.safe_load(f)
+    return config
 
 def clean_instruction(instruction):
     # Remove everything before "Prompt#:"
@@ -27,3 +38,4 @@ def clean_instruction(instruction):
 
     # Strip any leading or trailing whitespaces
     return instruction.strip()
+
